@@ -1,0 +1,43 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/80h5.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: app
+    # 上游只有 latest 一个可变 tag：按摘要比较，变了就把包版本 +1 个 patch
+    bump: patch
+
+build:
+  toolchains: []
+  run_buildscript: false
+
+images:
+  # 镜像模式（delivery.mode=mirror）：只读校验，manifest 里的镜像行已指纹化并指向加速地址
+  - id: app
+    target: service
+    service: app-80h5
+    source: ghcr.io/liangminmx/80h5
+    channel: custom
+    sort: created
+    tag_regex: '^latest$'
+    delivery:
+      mode: mirror
+      require_digest_match: true
+
+stores:
+  official:
+    enabled: false
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: 80h5
+    summary: "80h5（网页版 NES 模拟器）懒猫微服打包：自带 644 个 FC 游戏，PC 和手机都能玩。"
