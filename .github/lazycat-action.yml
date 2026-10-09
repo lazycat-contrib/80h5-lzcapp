@@ -39,5 +39,5 @@ stores:
   private:
     enabled: true
     skip_if_version_exists: true
-    name: 80h5
-    summary: "80h5（网页版 NES 模拟器）懒猫微服打包：自带 644 个 FC 游戏，PC 和手机都能玩。"
+    name: H5小游戏合集
+    summary: "H5小游戏合集（网页版 NES 模拟器）懒猫微服打包：自带 644 个 FC 游戏，PC 和手机都能玩。"
